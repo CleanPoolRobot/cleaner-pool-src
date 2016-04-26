@@ -2,7 +2,7 @@
 
 ## O Projeto
 O projeto visa o desenvolvimento de um sistema embarcado que forneça as
-capacidades necessárias para que o *Cleaner Pool*. Dentre as
+capacidades necessárias para que o *Clean Pool Robot* faça o que se propõe. Dentre as
 funcionalidades a serem disponibilizadas estão: movimentação do robô, leitura
 do *output* dos sensores, tratamento de obstáculos e correção do percurso.
 
