@@ -1,4 +1,4 @@
-### Bem vindo ao projeto *Cleaner Pool*.
+### Bem vindo ao projeto *Cleaner Pool*
 
 ## O Projeto
 O projeto visa o desenvolvimento de um sistema embarcado que forneça as
