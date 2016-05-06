@@ -3,12 +3,11 @@
 
 #include <fcntl.h> // Define some flags to open function.
 
-#define DEVICE "/dev/ttyAMA0"
+#define DEVICE "./teste.txt"
 #define NOT_OPEN -1
 
 namespace IO
 {
-  public:
     int start_arduino();
     int read_arduino( int );
     int write_arduino( int );
@@ -25,4 +24,4 @@ namespace IO
     int active_engine();
 }
 
-#endif COMMUNICATION_HPP
+#endif // COMMUNICATION_HPP
