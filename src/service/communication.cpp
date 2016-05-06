@@ -19,4 +19,18 @@ namespace IO
 
     return id_device;
   }
+
+  int read_arduino( int id_device )
+  {
+    char buffer[ SIZE_BUFFER ];
+    int check = read( id_device, buffer, sizeof( buffer ) );
+
+    if( check != NOT_OPEN )
+    {
+      // Nothing to do
+    } else
+    {
+      std::cout << "Unable to read arduino..." << std::endl;
+    }
+  }
 }
