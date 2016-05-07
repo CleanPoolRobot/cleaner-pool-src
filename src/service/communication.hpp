@@ -5,7 +5,7 @@
 #include <bcm2835.h>  // To access Raspberry Pi.
 #include <cstdint>    // To use different width of int.
 
-#define DEVICE "./teste.txt"
+#define DEVICE "./dev/ttyACM0"
 #define NOT_OPEN -1
 
 #define YES true
@@ -13,6 +13,8 @@
 
 namespace IO
 {
+    typedef char byte;
+
     bool is_bcm2835_init = NO;
 
     int start_arduino();
@@ -20,7 +22,7 @@ namespace IO
     int write_arduino( int );
     int stop_arduino( int );
 
-    char* read_ag();
+    byte* read_ag();
 
     int read_water_pump();
     int write_water_pump();
@@ -28,6 +30,9 @@ namespace IO
     int open_gate();
 
     int active_engine();
+
+
+    void verify_bcm2835_init();
 }
 
 #endif // COMMUNICATION_HPP
