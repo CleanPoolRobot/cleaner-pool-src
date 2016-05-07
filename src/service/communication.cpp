@@ -2,7 +2,9 @@
 #include <termios.h>
 #include <unistd.h>
 #include <iostream>
+
 using namespace std;
+
 namespace IO
 {
   const int SIZE_BUFFER = 50;
@@ -80,5 +82,35 @@ namespace IO
     {
       std::cout << "Unable to close arduino..." << std::endl;
     }
-  } 
+  }
+
+  char* read_ag()
+  {
+    if( is_bcm2835_init == YES )
+    {
+      // Nothing to do.
+    } else
+    {
+      bcm2835_init();
+    }
+
+    const uint8_t ADDRESS = 0x68; // TODO: Research about the address.
+    const int SIZE_DATA = 50;
+
+    char data_read[ SIZE_DATA ];
+
+    if( bcm2835_i2c_begin() )
+    {
+      bcm2835_i2c_setSlaveAddress( ADDRESS );
+
+      bcm2835_i2c_read( data_read, SIZE_DATA );
+
+      bcm2835_i2c_end();
+    } else
+    {
+      cout << "Unable to begin I2C..." << endl;
+    }
+
+    return data_read;
+  }
 }

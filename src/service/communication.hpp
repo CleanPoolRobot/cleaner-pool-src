@@ -1,20 +1,26 @@
 #ifndef COMMUNICATION_HPP
 #define COMMUNICATION_HPP
 
-#include <fcntl.h> // Define some flags to open function.
+#include <fcntl.h>    // Define some flags to open function.
+#include <bcm2835.h>  // To access Raspberry Pi.
+#include <cstdint>    // To use different width of int.
 
 #define DEVICE "./teste.txt"
 #define NOT_OPEN -1
 
+#define YES true
+#define NO false
+
 namespace IO
 {
+    bool is_bcm2835_init = NO;
+
     int start_arduino();
     int read_arduino( int );
     int write_arduino( int );
     int stop_arduino( int );
 
-    int read_ag();
-    int write_ag();
+    char* read_ag();
 
     int read_water_pump();
     int write_water_pump();
