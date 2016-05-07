@@ -108,6 +108,22 @@ namespace IO
     return data_read;
   }
 
+  int active_water_pump()
+  {
+    verify_bcm2835_init();
+
+    bcm2835_gpio_fsel( WATER_PUMP, BCM2835_GPIO_FSEL_INPT );
+    bcm2835_gpio_write( WATER_PUMP, HIGH );
+  }
+
+  int deactive_water_pump()
+  {
+    verify_bcm2835_init();
+
+    bcm2835_gpio_fsel( WATER_PUMP, BCM2835_GPIO_FSEL_INPT );
+    bcm2835_gpio_write( WATER_PUMP, LOW );
+  }
+
   void verify_bcm2835_init()
   {
      if( is_bcm2835_init == YES )

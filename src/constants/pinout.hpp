@@ -13,6 +13,8 @@ namespace
   const int BRIDGE_H0_ENGINE = RPI_V2_GPIO_P1_13;
   const int BRIDGE_H1_ENGINE = RPI_V2_GPIO_P1_15;
 
+  const int WATER_PUMP = RPI_V2_GPIO_P1_12;
+
   const int AG_SDA1_I2C = RPI_V2_GPIO_P1_03;
   const int AG_SCL1_I2C = RPI_V2_GPIO_P1_05;
 

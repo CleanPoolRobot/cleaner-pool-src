@@ -31,6 +31,8 @@ namespace IO
 
     int active_engine();
 
+    int active_water_pump();
+    int deactive_water_pump();
 
     void verify_bcm2835_init();
 }
