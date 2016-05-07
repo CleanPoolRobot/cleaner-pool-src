@@ -4,6 +4,7 @@
 #include <fcntl.h>    // Define some flags to open function.
 #include <bcm2835.h>  // To access Raspberry Pi.
 #include <cstdint>    // To use different width of int.
+#include "../constants/pinout.hpp"
 
 #define DEVICE "./dev/ttyACM0"
 #define NOT_OPEN -1
@@ -27,7 +28,7 @@ namespace IO
     int read_water_pump();
     int write_water_pump();
 
-    int open_gate();
+    int open_gate( int );
 
     int active_engine();
 
@@ -35,6 +36,7 @@ namespace IO
     int deactive_water_pump();
 
     void verify_bcm2835_init();
+    uint8_t select_gate( int );
 }
 
 #endif // COMMUNICATION_HPP

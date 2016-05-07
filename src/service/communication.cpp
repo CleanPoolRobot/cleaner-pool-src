@@ -124,6 +124,55 @@ namespace IO
     bcm2835_gpio_write( WATER_PUMP, LOW );
   }
 
+  int open_gate( int gate )
+  {
+    verify_bcm2835_init();
+
+    uint8_t pin_gate = select_gate( gate );
+
+    uint8_t gates[ 4 ] = { FRONT_GATE, BACK_GATE,
+                           LEFT_GATE, RIGHT_GATE };
+
+
+    for( int index = 0; index < 4; index++ )
+    {
+      if( gates[ index ] != pin_gate )
+      {
+        bcm2835_gpio_fsel( gates[ index ], BCM2835_GPIO_FSEL_INPT );
+        bcm2835_gpio_write( gates[ index ], LOW );
+      } else
+      {
+        bcm2835_gpio_fsel( gates[ index ], BCM2835_GPIO_FSEL_INPT );
+        bcm2835_gpio_write( gates[ index ], HIGH );
+      }
+    }
+  }
+
+  uint8_t select_gate( int gate )
+  {
+    uint8_t pin_gate = 0;
+
+    switch ( gate )
+    {
+      case 1:
+        pin_gate = FRONT_GATE;
+        break;
+      case 2:
+        pin_gate = BACK_GATE;
+        break;
+      case 3:
+        pin_gate = LEFT_GATE;
+        break;
+      case 4:
+        pin_gate = RIGHT_GATE;
+        break;
+      default:
+        cout << "Unable find gate..." << endl; 
+    }
+
+    return pin_gate;
+  }
+
   void verify_bcm2835_init()
   {
      if( is_bcm2835_init == YES )
