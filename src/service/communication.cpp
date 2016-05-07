@@ -84,20 +84,14 @@ namespace IO
     }
   }
 
-  char* read_ag()
+  byte* read_ag()
   {
-    if( is_bcm2835_init == YES )
-    {
-      // Nothing to do.
-    } else
-    {
-      bcm2835_init();
-    }
+    verify_bcm2835_init();
 
     const uint8_t ADDRESS = 0x68; // TODO: Research about the address.
     const int SIZE_DATA = 50;
 
-    char data_read[ SIZE_DATA ];
+    byte* data_read = ( byte* )malloc( SIZE_DATA );
 
     if( bcm2835_i2c_begin() )
     {
@@ -112,5 +106,16 @@ namespace IO
     }
 
     return data_read;
+  }
+
+  void verify_bcm2835_init()
+  {
+     if( is_bcm2835_init == YES )
+    {
+      // Nothing to do.
+    } else
+    {
+      bcm2835_init();
+    }
   }
 }
