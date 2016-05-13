@@ -6,7 +6,7 @@ capacidades necessárias para que o *Clean Pool Robot* faça o que se propõe. D
 funcionalidades a serem disponibilizadas estão: movimentação do robô, leitura
 do *output* dos sensores, tratamento de obstáculos e correção do percurso.
 
-O projeto está dividido em dois repositórios: o [_Cleaner Pool Environment_][env] e o [_Cleaner Pool Source_][src].
+O projeto está dividido em três repositórios: o [_Cleaner Pool Environment_][env], [_Cleaner Pool Source_][src] e o [_Cleaner Pool Arduino_][ard].
 
 Toda a documentação do _Cleaner Pool_ está na wiki do _Cleaner Pool Environment_, pois optou-se por centralizar as informações em um único repositório.
 
@@ -20,6 +20,12 @@ Toda a documentação do _Cleaner Pool_ está na wiki do _Cleaner Pool Environme
   <dd>
     Esse subprojeto mantém o código-fonte do <i>Cleaner Pool</i>. É escrito em C/C++, fazendo-se uso de bibliotecas externas que auxiliam no desenvolvimento, entre elas, a bcm2835.h, para ter-se acesso a GPIO e outros recursos da <i>Raspberry Pi</i>.
   </dd>
+
+ <dt><i>Cleaner Pool Arduino</i></dt>
+  <dd>
+    Esse subprojeto mantém o código-fonte de operações realizados no Arduino necessárias para o <i>Cleaner Pool</i> . É escrito em C/C++ com algumas modificações necessárias para o desenvolvimento de projetos no Arduino</i>.
+  </dd>
+<
 </dl>
 
 ***
@@ -38,3 +44,4 @@ A listagem dos contribuidores do projeto encontra-se aqui.
 [how-contribute]: https://github.com/CleanPoolRobot/cleaner-pool-env/wiki/Como-Contribuir
 [env]: https://github.com/CleanPoolRobot/cleaner-pool-env
 [src]: https://github.com/CleanPoolRobot/cleaner-pool-src
+[ard]: https://github.com/CleanPoolRobot/cleaner-pool-arduino
