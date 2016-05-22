@@ -14,6 +14,27 @@ def find_corner():
     return
 
 
+def activate_water_pump():
+    active_pump()
+
+    return
+
+
+def move_front():
+    turn_pipe(0)
+    turn_wheel(0)
+
+    activate_water_pump()
+    while FOREVER:
+        distance = activate_front_distance_sensor()  # cm
+
+        if distance <= 5:
+            deactivate_water_pump()
+            break
+
+    return
+
+
 def route_course():
     activate_water_pump()
 
