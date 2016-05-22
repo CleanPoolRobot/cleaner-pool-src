@@ -6,11 +6,13 @@ import communication
 
 FOREVER = True
 
+
 def find_corner():
     # TODO: Think about the logic of how the CleanPoolRobot will find the
     #       corner of the pool.
     #
     return
+
 
 def route_course():
     activate_water_pump()
@@ -20,25 +22,30 @@ def route_course():
     back = 3
 
     state = front
+    previous_state = front
 
-    while( FOREVER )
-        # Version com diversas move()
-        if( state == front )
+    while FOREVER:
+        if state == front:
             move_front()
-        elif( state == right )
+
+            previous_state = state
+            state = right
+        elif state == right:
             move_right()
-        elif( state == back )
+
+            if previous_state == front:
+                state = right
+            else:
+                state = back
+
+        elif state == back:
             move_back()
 
-        if( state == back )
-            state = front
-        else
-            state++
+            previous_state = state
+            state = right
 
-        # Version com uma move()
-        move( state )
-        state++
     return
+
 
 def finish():
     # TODO: Think about the logic of how the CleanPoolRobot will turn back
