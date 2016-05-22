@@ -1,10 +1,13 @@
-import RPi.GPIO as GPIO
 import time
-import pinout
-import communication
+import communication as SERVICE
 
 
 FOREVER = True
+FRONT = 0
+RIGHT = 90
+BACK = 180
+SIDEWAY = 90
+VERTICAL = 0
 
 
 def find_corner():
@@ -15,12 +18,12 @@ def find_corner():
 
 
 def activate_water_pump():
-    active_pump()
-
+    SERVICE.activate_pump()
     return
 
 
 def deactivate_water_pump():
+    SERVICE.deactive_pump()
     return
 
 
@@ -32,23 +35,35 @@ def turn_wheels(angle):
     return
 
 
-def activate_front_distance_sensor():
-    return
+def read_front_distance_sensor():
+    return 0
+
+
+def read_back_distance_sensor():
+    return 0
+
+
+def read_right_distance_sensor():
+    return 0
+
+
+def read_left_distance_sensor():
+    return 0
 
 
 def deactivate_brush():
-    return
+    return 0
 
 
 def move_front():
     deactivate_water_pump()
-    turn_pipe(0)  # degree
-    turn_wheels(0)  # degree
+    turn_pipe(FRONT)  # degree
+    turn_wheels(VERTICAL)  # degree
 
     activate_water_pump()
 
     while FOREVER:
-        distance = activate_front_distance_sensor()  #  cm
+        distance = read_front_distance_sensor()  # cm
 
         if distance <= 5:
             deactivate_water_pump()
@@ -59,47 +74,83 @@ def move_front():
 
 
 def move_right():
+    five_seconds = 5
+
     deactivate_water_pump()
-    turn_pipe(90)
-    turn_wheels(90)
+    turn_pipe(RIGHT)
+    turn_wheels(SIDEWAY)
 
     activate_water_pump()
-    time.sleep(5)  # second
+    time.sleep(five_seconds)  # second
 
     deactivate_water_pump
 
     return
 
 
-def route_course():
+def move_back():
+    five_centimeters = 5
+
+    deactivate_water_pump()
+    turn_pipe(BACK)
+    turn_wheels(VERTICAL)
+
     activate_water_pump()
 
+    while FOREVER:
+        distance = read_back_distance_sensor()  # cm
+
+        if distance <= five_centimeters:
+            deactivate_water_pump()
+            deactivate_brush()
+            break
+
+    return
+
+
+def state_machine(state):
     front = 1
     right = 2
     back = 3
 
-    state = front
-    previous_state = front
+    if state == front:
+        move_front()
+
+        previous_state = state
+        state = right
+    elif state == right:
+        move_right()
+
+        if previous_state == front:
+            state = back
+        else:
+            state = front
+
+    elif state == back:
+        move_back()
+
+        previous_state = state
+        state = right
+
+    return state
+
+
+def route_course():
+    activate_water_pump()
+
+    state = 1
 
     while FOREVER:
-        if state == front:
-            move_front()
+        front_sensor = read_front_distance_sensor()
+        back_sensor = read_back_distance_sensor()
+        right_sensor = read_right_distance_sensor()
+        left_sensor = read_left_distance_sensor()
 
-            previous_state = state
-            state = right
-        elif state == right:
-            move_right()
+        if (front_sensor > 5 and right_sensor > 5) or\
+           (back_sensor > 5 and left_sensor > 5):
+            break
 
-            if previous_state == front:
-                state = right
-            else:
-                state = back
-
-        elif state == back:
-            move_back()
-
-            previous_state = state
-            state = right
+        state = state_machine(state)
 
     return
 
