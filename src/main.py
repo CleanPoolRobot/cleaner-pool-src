@@ -1,4 +1,4 @@
-import communication
+import communication as s
 import RPi.GPIO as GPIO
 import time
 pmw_dute = GPIO.PWM(11,50)
@@ -17,15 +17,17 @@ def turn_servo_pump(angle, direction):
   return
 
 def main():
-  cont = 0
-  time_s = 90/270
-   #communication.turn_servos_wheels(0)
-  while(cont <=1):
-     pmw_dute.ChangeDutyCycle(50)
-     time.sleep()
-     pmw_dute.ChangeDutyCycle(100)
-  # communication.turn_servo_pump(90,0)
-     cont+1
+  while(1):
+    s.activate_brush()
+    time.sleep(1)
+    s.deactive_brush()
+    time.sleep(1)
   return
  
-main()
+try:
+    main()
+except KeyboardInterrupt:
+    pass
+finally:
+    GPIO.cleanup()
+>>>>>>> Stashed changes

@@ -1,4 +1,4 @@
-import pinout
+import pinout as pin
 import time
 import serial
 import RPi.GPIO as GPIO
@@ -7,7 +7,7 @@ import time
 #pmw=GPIO.PWM(pinout.SERVO_WHEELS,50)
 #pmw.start(5)
 
-pmw_dute = GPIO.PWM(pinout.SERVO_PUMP,50)
+mw_dute = GPIO.PWM(pin.SERVO_PUMP,50)
 pmw_dute.start(5) 
 def start_arduino():
     arduino_communication = serial.Serial("/dev/ttyAMA0", 115200)
@@ -22,12 +22,20 @@ def write_arduino(arduino_communication, line):
     return
 
 def activate_pump():
-    GPIO.output(WATER_PUMP, GPIO.HIGH)
-    return true
+   GPIO.output(pin.WATER_PUMP, GPIO.HIGH)
+    return True
 
 def deactive_pump():
-    GPIO.output(WATER_PUMP, GPIO.LOW)
-    return false
+    GPIO.output(pin.WATER_PUMP, GPIO.LOW)
+    return False
+
+def activate_brush():
+    GPIO.output(pin.BRUSH, GPIO.HIGH)
+    return True
+
+def deactive_brush():
+    GPIO.output(pin.BRUSH, GPIO.LOW)
+    return False
 
 def turn_servos_wheels(angle):
     duty = float(angle)/20 + 2.5
